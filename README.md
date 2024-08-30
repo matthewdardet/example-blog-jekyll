@@ -1,6 +1,6 @@
-_An example blog for Gov 1347_
+_An example blog for GOV 1347_
 
-Welcome to my election analysis blog! It will be updated *every Sunday.* Feel free to reach out to me ([matthewdardet@g.harvard.edu](matthewdardet@g.harvard.edu)) if you have any comments or questions.
+Welcome to my election analysis and prediction blog! It will be updated *every Sunday.* Feel free to reach out to me ([matthewdardet@g.harvard.edu](matthewdardet@g.harvard.edu)) if you have any comments or questions.
 
 # [1. Introduction](posts/01-Intro.md)
 

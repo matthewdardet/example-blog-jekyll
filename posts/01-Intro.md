@@ -1,5 +1,5 @@
 # Introduction: Past Presidential Election Results
-## Aug 29, 2024
+## August 30, 2024
 
 Predictions of the future are based on the patterns of the past. If X tended to predict Y well in the past, we would want to use that X in our model. So we start our journey by looking into past presidential election results -- first at the national level. 
 
@@ -35,7 +35,7 @@ Below we can see which states vote blue/red and how consistently so. In section,
 
 ![](../figures/PV_states_historical.png)
 
-**Prediction: using past election returns.** Noting from the first figure the general competitiveness of elections, we might infer that the best way to predict this year's election in each state is looking at the two *most recent* electoral cycles. This is the simple but central engine of the [Helmut Norpath electoral cycle model](https://www.pollyvote.com/pollyvote-election-forecasting/naive-forecast/). 
+**Prediction 1: using past election returns.** Noting from the first figure the general competitiveness of elections, we might infer that the best way to predict this year's election in each state is looking at the two *most recent* electoral cycles. This is the simple but central engine of the [Helmut Norpath electoral cycle model](https://www.pollyvote.com/pollyvote-election-forecasting/naive-forecast/). 
 
 I will predict 2024 election state-by-state election outcomes, for each state `i` using a simplified version of this model by taking a weighted average of the past two election popular vote returns: 
 
@@ -52,6 +52,11 @@ See [the related R script to replicate this analysis](../scripts/01_Intro_Lab_Bl
 If we go on this naïve, historically weighted model, Trump is expected to win a number of key battleground states: Arizona (`+0.7%`), Georgia (`+1.15%`), North Carolina (`+2.0%`), Florida (`+2.9%`), and Ohio (`+8.5%`). On the other hand, Harris is favored to win a fair share of battleground states including Wisconsin (`+0.3%`), Pennsylvannia (`+0.7%`), Michigan (`+2.1%`), Nevada (`+2.5%`), New Hampshire (`+5.7%`), Minnesota (`+5.9%`), and Maine (`+7.8%)`. 
 
 Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in November.
+
+**Prediction 2: using past election returns and OLS.** We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. 
+
+
+
 
 
 
