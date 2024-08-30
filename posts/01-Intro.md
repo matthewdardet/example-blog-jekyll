@@ -49,7 +49,7 @@ See [the related R script to replicate this analysis](../scripts/01_Intro_Lab_Bl
 
 (Note that this map could be better labelled!)
 
-If we go on this naïve, historically weighted model, Trump is expected to win a number of key battleground states: Arizona (`+0.7%`), Georgia (`+1.15%`), North Carolina (`+2.0%`), Florida (`+2.9%`), and Ohio (`+8.5%`). On the other hand, Harris is favored to win a fair share of battleground states including Wisconsin (`+0.3%`), Pennsylvannia (`+0.7%`), Michigan (`+2.1%`), Nevada (`+2.5%`), New Hampshire (`+5.7%`), Minnesota (`+5.9%`), and Maine (`+7.8%)`. 
+If we go off this naïve, historically weighted model, Trump is expected to win a number of key battleground states: Arizona (`+0.7%`), Georgia (`+1.15%`), North Carolina (`+2.0%`), Florida (`+2.9%`), and Ohio (`+8.5%`). On the other hand, Harris is favored to win a fair share of battleground states including Wisconsin (`+0.3%`), Pennsylvannia (`+0.7%`), Michigan (`+2.1%`), Nevada (`+2.5%`), New Hampshire (`+5.7%`), Minnesota (`+5.9%`), and Maine (`+7.8%)`. 
 
 Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in November.
 
