@@ -4,8 +4,6 @@ Welcome to my election analysis blog! It will be updated *every Sunday.* Feel fr
 
 # [1. Introduction](posts/01-Intro.md)
 
-# [2. Economy](posts/02-Econ.md)
-
 
 ### Some Markdown Basics
 
