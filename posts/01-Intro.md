@@ -53,7 +53,28 @@ If we go off this naïve, historically weighted model, Trump is expected to win 
 
 Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in November.
 
-**Prediction 2: using past election returns and OLS.** We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. 
+**Prediction 2: using past election returns and OLS.** We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. The first model uses vote share from the previous electoral cycle (2020) to predict the 2024 vote using simple OLS as follows: 
+$$ 
+Y{2024}_i = \beta_0 + \beta_1 {X_{{vote_share_2020}_i}} + \epsilon
+$$
+
+The second model uses vote share from both 2020 and 2016 to predict the vote share in 2024 using multivariate OLS: 
+$$ 
+Y{2024}_i = \beta_0 + \mathbf{\beta} \begin{bmatrix}
+X_{{vote_share_2020}_i} \\
+X_{{vote_share_2016}_i}
+\end{bmatrix} + \epsilon
+$$
+
+Using these models, I obtained the following Electoral College vote predictions: 
+
+
+| Predictor Type                 | Harris | Trump |
+|--------------------------------|--------|-------|
+| One Lagged Cycle Predictor     |   226  |  312  |
+| Two Lagged Cycle Predictors    |   247  |  291  |
+
+
 
 ![](../figures/PV2024_OLS_forecast.png)
 
