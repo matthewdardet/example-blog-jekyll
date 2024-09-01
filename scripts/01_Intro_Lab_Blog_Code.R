@@ -395,6 +395,7 @@ us_hexgrid[us_hexgrid$google_name == "District of Columbia",]$google_name <- "Di
 state.mod.preds.hex <- us_hexgrid |> 
   left_join(state.mod.preds, by = c("google_name" = "state"))
 
+state.mod.preds.hex[state.mod.preds.hex$google_name == "District Of Columbia",]$pv2p_2024_margin <- -50 # "Hack" so that DC can be included within normal margin bounds. 
 
 ggplot(state.mod.preds.hex) +
   geom_sf(aes(fill = pv2p_2024_margin)) +

@@ -55,6 +55,8 @@ Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in Novemb
 
 **Prediction 2: using past election returns and OLS.** We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. 
 
+![](../figures/PV2024_OLS_forecast.png)
+
 
 
 
