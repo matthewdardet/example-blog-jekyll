@@ -1,3 +1,7 @@
+---
+katex: true
+---
+
 # Introduction: Past Presidential Election Results
 ## August 30, 2024
 
@@ -55,7 +59,7 @@ Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in Novemb
 
 **Prediction 2: using past election returns and OLS.**
 
-We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. The first model uses vote share from the previous electoral cycle (2020) to predict the 2024 vote using simple OLS as follows: 
+We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. The first model uses vote share from the previous electoral cycle (2020) to predict the 2024 vote in each state using simple OLS as follows: 
 
 $$ 
 Y_{2024,i} = \beta_0 + \beta_1 {X_{{\text{vote\_share\_2020}}_i}} + \epsilon_i
@@ -70,7 +74,6 @@ X_{{\text{vote\_share\_2016}}_i}
 \end{bmatrix} + \epsilon_i
 $$
 
-
 Using these models, I obtained the following Electoral College vote predictions: 
 
 
@@ -78,6 +81,9 @@ Using these models, I obtained the following Electoral College vote predictions:
 |--------------------------------|--------|-------|
 | One Lagged Cycle Predictor     |   226  |  312  |
 | Two Lagged Cycle Predictors    |   247  |  291  |
+
+These predictions are quite a bit different than those obtained from Norpoth's electoral cycle model. Why might that be? Well, for one the utility of including an intercept in these models is somewhat suspect; for example, if the vote for the GOP candidate in a state is 0 in 2020, we might reasonable expect the vote for the GOP candidate in a state in 2024 to be 0 as well. Including an intercept estimated from a model that pools states together may result in dramatically different predictions than models that only estimate 2024 vote using a weigthed sum of 2020 and 2016 votes. 
+
 
 
 
