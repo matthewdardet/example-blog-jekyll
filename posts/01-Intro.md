@@ -58,14 +58,6 @@ $$
 Y{2024}_i = \beta_0 + \beta_1 {X_{{vote_share_2020}_i}} + \epsilon
 $$
 
-The second model uses vote share from both 2020 and 2016 to predict the vote share in 2024 using multivariate OLS: 
-$$ 
-Y{2024}_i = \beta_0 + \mathbf{\beta} \begin{bmatrix}
-X_{{vote_share_2020}_i} \\
-X_{{vote_share_2016}_i}
-\end{bmatrix} + \epsilon
-$$
-
 Using these models, I obtained the following Electoral College vote predictions: 
 
 
