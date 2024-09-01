@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Introduction: Past Presidential Election Results
 ## August 30, 2024
 
