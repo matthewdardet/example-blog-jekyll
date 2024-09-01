@@ -1,3 +1,5 @@
 theme: jekyll-theme-minimal
 title: 2024 Presidential Election Analysis
 description: Matthew E. Dardet, Harvard University
+kramdown:
+  math_engine: katex
