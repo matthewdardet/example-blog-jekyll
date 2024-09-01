@@ -58,12 +58,12 @@ Altogether, that spells out `276 EV` for Harris and `262 EV` for Trump in Novemb
 We can also estimate simple bivariate and multivariate linear regressions using past electoral cycle returns. The first model uses vote share from the previous electoral cycle (2020) to predict the 2024 vote in each state using simple OLS as follows: 
 
 ```
-presvoteshare2024_i = beta_0 + beta_1*(presvoteshare2020_i) + u_i
+presvoteshare2024_i = beta_0 + beta_1*(presvoteshare2020_i)
 ```
 The second model uses vote share from both 2020 and 2016 to predict the vote share in 2024 using multivariate OLS: 
 
 ```
-presvoteshare2024_i = beta_0 + beta_1*(presvoteshare2020_i) + beta_2*(presvoteshare2016_i) + u_i
+presvoteshare2024_i = beta_0 + beta_1*(presvoteshare2020_i) + beta_2*(presvoteshare2016_i)
 ```
 
 Using these models, I obtained the following Electoral College vote predictions: 
@@ -88,6 +88,6 @@ Interestingly, this model only differs in terms of final prediction with respect
 
 
 
-[^1]: See, e.g., https://onlinelibrary.wiley.com/doi/10.1111/1467-9639.00136. 
+[^1]: See, e.g., <https://onlinelibrary.wiley.com/doi/10.1111/1467-9639.00136>. 
 
 
