@@ -88,7 +88,9 @@ Well, for one, the weights (coefficients) multiplying the lagged vote share vari
 
 Second, the utility of including an intercept in these models is somewhat dubious; for example, if the vote for the GOP candidate in a state is 0 in 2020, we might reasonable expect the vote for the GOP candidate in a state in 2024 to be 0 as well. Including an intercept estimated from a model that pools states together may result in dramatically different predictions than models that only estimate 2024 vote using a weigthed sum of 2020 and 2016 votes. 
 
-For our final introductory prediction techinque will use the two lagged cycle prediction model without an intercept and estimated separately for each state. This model predicts `287 EV` for Harris and `251 EV` for Trump in November. Interestingly, this model only differs in terms of final prediction with respect to one swing state, Arizona, compared to Norpoth's model. My state-level model predicts a Harris victory in Arizona. 
+For our final introductory prediction techinque will use the two lagged cycle prediction model without an intercept and estimated separately for each state. This model predicts `287 EV` for Harris and `251 EV` for Trump in November. 
+
+Interestingly, this model only differs in terms of final prediction with respect to one swing state, Arizona, compared to Norpoth's model. My state-level model predicts a Harris victory in Arizona. The model predictions are visualized below using a hex grid map of all US states and DC. 
 
 ![](../figures/PV2024_OLS_forecast.png)
 
