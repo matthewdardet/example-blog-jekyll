@@ -20,7 +20,7 @@ library(tidyverse)
 ####----------------------------------------------------------#
 
 # Read presidential popular vote. 
-d_popvote <- read_csv("data/popvote_1948-2020.csv")
+d_popvote <- read_csv("data/01/popvote_1948-2020.csv")
 
 # Subset data to most recent past election year. 
 d_popvote |> 
@@ -118,7 +118,7 @@ unique(states_map$region)
 
 # Read/clean/merge state popular vote. 
 # Create wide version of dataset that can be used to compare candidate votes with one another. 
-d_pvstate <- read_csv("data/state_2pv_1948_2020.csv")
+d_pvstate <- read_csv("data/01/state_2pv_1948_2020.csv")
 colnames(d_pvstate)
 
 d_pvstate_wide <- d_pvstate |> 
@@ -144,7 +144,7 @@ d_pvstate_wide <- d_pvstate |>
          R_pv2p_lag2 = lag(R_pv2p, 2)) 
 
 write_csv(d_pvstate_wide, 
-          "data/clean_wide_state_2pv_1948_2020.csv") # Output widened dataset for use by the class. 
+          "data/01/clean_wide_state_2pv_1948_2020.csv") # Output widened dataset for use by the class. 
 
 d_pvstate_wide$region <- tolower(d_pvstate_wide$state)
 
@@ -239,9 +239,9 @@ pv2p_2024_states <- pv2p_2024_states |>
     mutate(winner = ifelse(R_pv2p_2024 > D_pv2p_2024, "R", "D"),
            year = 2024)
 
-ec <- read_csv("data/ec_full.csv")
+ec <- read_csv("data/01/ec_full.csv")
 ec[which(ec$state == "D.C."),]$state <- "District Of Columbia"
-write_csv(ec, "data/ec_full.csv")
+write_csv(ec, "data/01/ec_full.csv")
 
 pv2p_2024_states <- pv2p_2024_states |>
     left_join(ec, by = c("state", "year"))
@@ -387,7 +387,7 @@ library(RColorBrewer)
 library(viridis)
 
 # Read US hexgrid data. 
-us_hexgrid <- read_sf("data/us_states_hexgrid.geojson") |> 
+us_hexgrid <- read_sf("data.us_states_hexgrid.geojson") |> 
   mutate(google_name = gsub(" \\(United States\\)", "", google_name))
 us_hexgrid[us_hexgrid$google_name == "District of Columbia",]$google_name <- "District Of Columbia"
 

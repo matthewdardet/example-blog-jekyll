@@ -5,7 +5,7 @@ Predictions of the future are based on the patterns of the past. If X tended to 
 
 **Elections are generally competitive between the two parties.** One thing in particular stands out: in the last 60 or so years, the race for the presidency has overall been remarkably competitive between the two major parties. Since FDR, neither Republicans nor Democrats have maintained a monopoly over the White House:
 
-![Presidential Popular Voteshare (1948-2020)](../figures/PV_national_historical.png)
+![Presidential Popular Voteshare (1948-2020)](../figures/01/PV_national_historical.png)
 
 The first half of the twentieth century experienced greater swings and greater margins of victory, while point spreads in the last 20 years have been less than 10 points. The three <u>closest</u> elections in the last 60 years and their "prevailing narratives" are:
 
@@ -33,7 +33,7 @@ This is an illustration of the distortions of a *winner-takes-all* electoral sys
 
 Below we can see which states vote blue/red and how consistently so. In section, we will produce more nuanced versions of these maps that highlight ''swinginess'' of various states.
 
-![](../figures/PV_states_historical.png)
+![](../figures/01/PV_states_historical.png)
 
 **Prediction 1: using past election returns.** Noting from the first figure the general competitiveness of elections, we might infer that the best way to predict this year's election in each state is looking at the two *most recent* electoral cycles. This is the simple but central engine of the [Helmut Norpath electoral cycle model](https://www.pollyvote.com/pollyvote-election-forecasting/naive-forecast/). 
 
@@ -45,7 +45,7 @@ presvoteshare2024_i = (presvoteshare2020_i x 0.75) + (presvoteshare2016_i x 0.25
 
 See [the related R script to replicate this analysis](../scripts/01_Intro_Lab_Blog_Code.R). The figure below shows the state-by-state forecasts:
 
-![](../figures/PV2024_simple_forecast.png)
+![](../figures/01/PV2024_simple_forecast.png)
 
 (Note that this map could be better labelled.)
 
@@ -84,7 +84,7 @@ For our final introductory prediction techinque will use the two lagged cycle pr
 
 Interestingly, this model only differs in terms of final prediction with respect to one swing state, Arizona, compared to Norpoth's model. My state-level model predicts a Harris victory in Arizona. The model predictions are visualized below using a hex grid map of all US states and DC. 
 
-![](../figures/PV2024_OLS_forecast.png)
+![](../figures/01/PV2024_OLS_forecast.png)
 
 
 
