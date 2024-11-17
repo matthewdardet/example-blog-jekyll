@@ -219,20 +219,45 @@ graph_ensemble_regr = gunion(list(
 
 graph_ensemble_regr$plot()
 
-ensemble_unweighted = as_learner(graph_ensemble_regr, id = "ensemble_unweighted")
+ensemble_unweighted_natl = as_learner(graph_ensemble_regr, id = "ensemble_unweighted_natl")
 
 # Set resampling strategy.
 rcv25  = rsmp("repeated_cv", folds = 10, repeats = 5) 
 
 # Graph ensemble (unweighted):
 set.seed(02138)
-ensemble_unweighted$train(tsk_natl)
-ensemble_unweighted$predict_newdata(d_n[15,])
+ensemble_unweighted_natl$train(tsk_natl)
+ensemble_unweighted_natl$predict_newdata(d_n[15,])
+
+# Get split conformal confidence bounds. 
+m <- 1e3
+d.split <- rep(NA, m) 
+for (i in 1:m) {
+  alpha <- 0.05 
+  n <- dim(tsk_natl$data())[1]
+  split.index <- sample(1:n, size = n/2, replace = FALSE)
+  split = partition(tsk_natl)
+  split$train <- split.index
+  split$test <- (1:n)[-split.index]
+  ensemble_unweighted_natl$train(tsk_natl, row_ids = split$train)
+  pred.split <- ensemble_unweighted_natl$predict(tsk_natl, row_ids = split$test)
+  r <- abs(pred.split$truth - pred.split$response)
+  k <- ceiling((n/2 + 1)*(1 - (alpha)))
+  d <- sort(r)[k]
+  d.split[i] <- quantile(r, (1-alpha))  
+}
+d.natl <- median(d.split)
 
 # Concatenate national results. 
 natl_results <- data.frame("year" = 2024, 
-                           "ensemble_unweighted_pv2p" = ensemble_unweighted$predict_newdata(d_n[15,])$response |> round(2))
+                           "state" = "National Popular Vote",
+                           "pred" = ensemble_unweighted_natl$predict_newdata(d_n[15,])$response |> round(2)) |> 
+  mutate(lo = pred - d.natl, 
+         up = pred + d.natl) |> 
+  select(state, lo, pred, up)
 natl_results
+
+
 
 
 
@@ -253,17 +278,92 @@ measures = msrs(c("regr.bias", "regr.mae", "regr.mse", "regr.rmse"))
 
 #### Part II.A. First Pass. 
 # Graph ensemble (unweighted):
+ensemble_unweighted_state = as_learner(graph_ensemble_regr, id = "ensemble_unweighted_state")
 set.seed(02138)
-ensemble_unweighted$train(tsk_state)
-ensemble_unweighted$predict_newdata(d_s_t[indices.2024,])$response
+ensemble_unweighted_state$train(tsk_state)
+ensemble_unweighted_state$predict_newdata(d_s_t[indices.2024,])$response
+
+# Get split conformal confidence bounds.
+m <- 1e3
+d.split <- rep(NA, m) 
+for (i in 1:m) {
+  alpha <- 0.05 
+  n <- dim(tsk_state$data())[1]
+  split.index <- sample(1:n, size = n/2, replace = FALSE)
+  split = partition(tsk_natl)
+  split$train <- split.index
+  split$test <- (1:n)[-split.index]
+  ensemble_unweighted_state$train(tsk_state, row_ids = split$train)
+  pred.split <- ensemble_unweighted_state$predict(tsk_state, row_ids = split$test)
+  r <- abs(pred.split$truth - pred.split$response)
+  k <- ceiling((n/2 + 1)*(1 - (alpha)))
+  d <- sort(r)[k]
+  d.split[i] <- quantile(r, (1-alpha))  
+}
+d.state <- median(d.split)
 
 # Concatenate state-level results. 
 state_results <- data.frame("state" = d_s$state[indices.2024], 
-                            "ensemble_unweighted_D_pv2p" = ensemble_unweighted$predict_newdata(d_s_t[indices.2024,])$response |> round(2)) |> 
+                            "pred" = ensemble_unweighted_state$predict_newdata(d_s_t[indices.2024,])$response |> round(2)) 
+state_results <- state_results |> 
   mutate(state_abb = state.abb[match(state_results$state, state.name)]) |> 
-  select(state, ensemble_unweighted_D_pv2p)
+  mutate(lo = pred - d.state, 
+         up = pred + d.state) |>
+  select(state, state_abb, lo, pred, up)
 state_results
 
+results <- rbind(natl_results, 
+                 state_results |> select(-state_abb))
+results
+
+
+
+####----------------------------------------------------------#
+#### Part III. Electoral College (State-Level Forecasts)
+####            Prediction Evaluation    
+####----------------------------------------------------------#
+
+state_outcomes <- read_csv("data/02/state_votes_pres_2024.csv")
+
+state_outcomes$`Geographic Name`
+
+# (1.) Bias 
+
+results <- results |> 
+  left_join(state_outcomes, by = c("state" = "Geographic Name")) |> 
+  slice(-1) |> 
+  mutate(harris_votes = as.numeric(`Kamala D. Harris`), 
+         trump_votes = as.numeric(`Donald J. Trump`),
+         harris_2pv = 100 * harris_votes/(harris_votes + trump_votes))
+
+mean(results$harris_2pv - results$pred)
+
+# (2.) MSE 
+
+mean((results$harris_2pv - results$pred)^2)
+
+# (3.) RMSE 
+
+sqrt(mean((results$harris_2pv - results$pred)^2))
+
+# (4.) MAE 
+
+mean(abs(results$harris_2pv - results$pred))
+
+# (5.) Confusion Matrix 
+results <- results |> 
+  mutate(pred_class = as.factor(case_when(pred > 50 ~ "DEM", 
+                                          .default = "REP")),
+         result_class = as.factor(case_when(harris_2pv > 50 ~ "DEM", 
+                                            .default = "REP")))
+
+table("Actual" = results$result_class, 
+      "Prediction" = results$pred_class)
+
+library(caret)
+
+confusionMatrix(table("Actual" = results$result_class, 
+                      "Prediction" = results$pred_class))
 
 
 
@@ -284,33 +384,7 @@ state_results
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Graveyard of fancy code :(
+  # Graveyard of fancy code :(
 
 # ## Initial benchmarking test. 
 # design = benchmark_grid(tsk_state, learners_state_1, rcv25)
